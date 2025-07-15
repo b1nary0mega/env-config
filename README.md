@@ -5,9 +5,11 @@ command-line with either `curl`, `wget` or another similar tool.
 
 | Method    | Command                                                                                           |
 | :-------- | :------------------------------------------------------------------------------------------------ |
-| **curl**  | `sh -c "$(curl -fsSL https://raw.githubusercontent.com/b1nary0mega/env-config/refs/heads/main/debian/update.sh)"` |
-| **wget**  | `sh -c "$(wget -O- https://raw.githubusercontent.com/b1nary0mega/env-config/refs/heads/main/debian/update.sh)"`   |
-| **fetch** | `sh -c "$(fetch -o - https://raw.githubusercontent.com/b1nary0mega/env-config/refs/heads/main/debian/update.sh)"` |
+| **curl**  | `sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/b1nary0mega/env-config/refs/heads/main/debian/update.sh)"` |
+| **wget**  | `sudo sh -c "$(wget -O- https://raw.githubusercontent.com/b1nary0mega/env-config/refs/heads/main/debian/update.sh)"`   |
+| **fetch** | `sudo sh -c "$(fetch -o - https://raw.githubusercontent.com/b1nary0mega/env-config/refs/heads/main/debian/update.sh)"` |
+
+**I'm not liable for dumb people or bad decisions. If you don't know what above does and you haven't looked at it - do some homework!**
 
 # Manual Inspection
 
