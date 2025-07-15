@@ -347,7 +347,11 @@ if ! command -v flameshot &> /dev/null; then
     apt install -y flameshot
     if [ "$XDG_CURRENT_DESKTOP" == "XFCE" ]; then
     	echo "..... ${BLUE}binding PRINT SCREEN button.${NC}"
-        xfconf-query --create --channel xfce4-keyboard-shortcuts --property "/commands/custom/Print" --type string --set "flameshot gui"
+         if [ -n "$SUDO_USER" ]; then
+            sudo -u "$SUDO_USER" xfconf-query --create --channel xfce4-keyboard-shortcuts --property "/commands/custom/Print" --type string --set "flameshot gui"
+        else
+            xfconf-query --create --channel xfce4-keyboard-shortcuts --property "/commands/custom/Print" --type string --set "flameshot gui"
+        fi
     else
         echo "..... ${BLUE}Remember to update keyboard bind.${NC}"
     fi
