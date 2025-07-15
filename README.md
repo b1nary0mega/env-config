@@ -9,7 +9,8 @@ command-line with either `curl`, `wget` or another similar tool.
 | **wget**  | `sudo sh -c "$(wget -O- https://raw.githubusercontent.com/b1nary0mega/env-config/refs/heads/main/debian/update.sh)"`   |
 | **fetch** | `sudo sh -c "$(fetch -o - https://raw.githubusercontent.com/b1nary0mega/env-config/refs/heads/main/debian/update.sh)"` |
 
-**I'm not liable for dumb people or bad decisions. If you don't know what above does and you haven't looked at it - do some homework!**
+**I'm NOT liable** for dumb people, bad decisions, cold coffee, or otherwise. 
+If you don't know what above does and you haven't looked at it, educate yourself.
 
 # Manual Inspection
 
