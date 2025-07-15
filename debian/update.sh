@@ -32,16 +32,16 @@ if [ ! -f /opt/ohmyzsh.sh ]; then
       echo "Error: $ZSHRC not found!"
     fi
     # Backup current .zshrc
-    cp "$ZSHRC" "$ZSHRC.bak"
+    cp "$HOME/.zshrc" "$HOME/.zshrc.bak"
     echo ".. ${BLUE}Updating Plugins and Theme.${NC}"
-    sed -i '' 's/^plugins=(git)$/plugins=(git debian ansible colorize)/' "$ZSHRC"
-    sed -i '' 's/^ZSH_THEME="robbyrussell"$/ZSH_THEME="bira"/' "$ZSHRC"
+    sed -i 's/^plugins=(git)$/plugins=(git debian ansible colorize)/' "$HOME/.zshrc"
+    sed -i 's/^ZSH_THEME="robbyrussell"$/ZSH_THEME="bira"/' "$HOME/.zshrc"
     if [ -n "$SUDO_USER" ]; then
         sudo -u "$SUDO_USER" sh /opt/ohmyzsh.sh --unattended
         cp "$ZSHRC" "$ZSHRC.bak"
         echo ".. ${BLUE}Updating Plugins and Theme.${NC}"
-        sed -i '' 's/^plugins=(git)$/plugins=(git debian ansible colorize)/' "$ZSHRC"
-        sed -i '' 's/^ZSH_THEME="robbyrussell"$/ZSH_THEME="aussiegeek"/' "$ZSHRC"
+        sed -i 's/^plugins=(git)$/plugins=(git debian ansible colorize)/' "$HOME/.zshrc"
+        sed -i 's/^ZSH_THEME="robbyrussell"$/ZSH_THEME="aussiegeek"/' "$HOME/.zshrc"
     fi
 fi
 
