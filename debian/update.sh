@@ -15,7 +15,7 @@ echo "-> ${BLUE}Updating the operating system.${NC}"
 apt update ; apt -y upgrade ; apt -y dist-upgrade ; apt -y autoremove ; apt -y autoclean ; updatedb
 echo
 
-if ! command -v colorize &/dev/null; then
+if ! command -v colorize &> /dev/null; then
     echo "--> ${YELLOW}Installing colorize.${NC}"
     sudo apt install -y colorize
 fi
@@ -25,12 +25,23 @@ if [ ! -f /opt/ohmyzsh.sh ]; then
     wget -q https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O /opt/ohmyzsh.sh
     chmod 755 /opt/ohmyzsh.sh
     sh /opt/ohmyzsh.sh --unattended
-    sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="aussiegeek"/' ~/.zshrc
-    sed -i 's/plugins=(git)"/plugins=(git ansible debian colorize)"/' ~/.zshrc
+    # Path to the zshrc file
+    ZSHRC="$HOME/.zshrc"
+    # Check if the file exists
+    if [[ ! -f "$ZSHRC" ]]; then
+      echo "Error: $ZSHRC not found!"
+    fi
+    # Backup current .zshrc
+    cp "$ZSHRC" "$ZSHRC.bak"
+    echo ".. ${BLUE}Updating Plugins and Theme.${NC}"
+    sed -i '' 's/^plugins=(git)$/plugins=(git debian ansible colorize)/' "$ZSHRC"
+    sed -i '' 's/^ZSH_THEME="robbyrussell"$/ZSH_THEME="aussiegeek"/' "$ZSHRC"
     if [ -n "$SUDO_USER" ]; then
         sudo -u "$SUDO_USER" sh /opt/ohmyzsh.sh --unattended
-        sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="aussiegeek"/' ~/.zshrc
-        sed -i 's/plugins=(git)"/plugins=(git ansible debian colorize)"/' ~/.zshrc
+        cp "$ZSHRC" "$ZSHRC.bak"
+        echo ".. ${BLUE}Updating Plugins and Theme.${NC}"
+        sed -i '' 's/^plugins=(git)$/plugins=(git debian ansible colorize)/' "$ZSHRC"
+        sed -i '' 's/^ZSH_THEME="robbyrussell"$/ZSH_THEME="aussiegeek"/' "$ZSHRC"
     fi
 fi
 
