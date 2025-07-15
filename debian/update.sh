@@ -25,12 +25,6 @@ if [ ! -f /opt/ohmyzsh.sh ]; then
     wget -q https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O /opt/ohmyzsh.sh
     chmod 755 /opt/ohmyzsh.sh
     sh /opt/ohmyzsh.sh --unattended
-    # Path to the zshrc file
-    ZSHRC="$HOME/.zshrc"
-    # Check if the file exists
-    if [[ ! -f "$ZSHRC" ]]; then
-      echo "Error: $ZSHRC not found!"
-    fi
     echo ".. ${BLUE}Updating plugins and theme(s) for root.${NC}"
     sed -i 's/^plugins=(git)$/plugins=(git debian ansible colorize)/' "$HOME/.zshrc"
     sed -i 's/^ZSH_THEME="robbyrussell"$/ZSH_THEME="bira"/' "$HOME/.zshrc"
