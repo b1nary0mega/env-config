@@ -21,7 +21,7 @@ if ! command -v colorize &> /dev/null; then
 fi
 
 if [ ! -f /opt/ohmyzsh.sh ]; then
-    echo "--> ${YELLOW}Installing Oh My ZSH for root and $SUDO_USER .${NC}"
+    echo "--> ${YELLOW}Installing Oh My ZSH${NC}"
     wget -q https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O /opt/ohmyzsh.sh
     chmod 755 /opt/ohmyzsh.sh
     sh /opt/ohmyzsh.sh --unattended
@@ -31,15 +31,12 @@ if [ ! -f /opt/ohmyzsh.sh ]; then
     if [[ ! -f "$ZSHRC" ]]; then
       echo "Error: $ZSHRC not found!"
     fi
-    # Backup current .zshrc
-    cp "$HOME/.zshrc" "$HOME/.zshrc.bak"
-    echo ".. ${BLUE}Updating Plugins and Theme.${NC}"
+    echo ".. ${BLUE}Updating plugins and theme(s) for root.${NC}"
     sed -i 's/^plugins=(git)$/plugins=(git debian ansible colorize)/' "$HOME/.zshrc"
     sed -i 's/^ZSH_THEME="robbyrussell"$/ZSH_THEME="bira"/' "$HOME/.zshrc"
     if [ -n "$SUDO_USER" ]; then
         sudo -u "$SUDO_USER" sh /opt/ohmyzsh.sh --unattended
-        cp "$ZSHRC" "$ZSHRC.bak"
-        echo ".. ${BLUE}Updating Plugins and Theme.${NC}"
+        echo ".. ${BLUE}Updating plugins and theme(s) for $SUDO_USER.${NC}"
         sed -i 's/^plugins=(git)$/plugins=(git debian ansible colorize)/' "$HOME/.zshrc"
         sed -i 's/^ZSH_THEME="robbyrussell"$/ZSH_THEME="aussiegeek"/' "$HOME/.zshrc"
     fi
