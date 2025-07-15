@@ -350,7 +350,7 @@ if ! command -v flameshot &> /dev/null; then
         xfconf-query --create --channel xfce4-keyboard-shortcuts --property "/commands/custom/Print" --type string --set "flameshot gui"
     else
         echo "..... ${BLUE}Remember to update keyboard bind.${NC}"
-    echo
+    fi
 fi
 
 if ! command -v "brave-browser" &> /dev/null; then
