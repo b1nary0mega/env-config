@@ -10,25 +10,27 @@ YELLOW='\033[1;33m'
 
 ###############################################################################################################################
 
-# Clean up deprecated repos
-if [ -d /opt/PEASS-ng/.git ]; then
-    rm -rf /opt/PEASS-ng/
-fi
-
-###############################################################################################################################
-
 echo
 echo "-> ${BLUE}Updating the operating system.${NC}"
 apt update ; apt -y upgrade ; apt -y dist-upgrade ; apt -y autoremove ; apt -y autoclean ; updatedb
 echo
+
+if ! command -v colorize &/dev/null; then
+    echo "--> ${YELLOW}Installing colorize.${NC}"
+    sudo apt install -y colorize
+fi
 
 if [ ! -f /opt/ohmyzsh.sh ]; then
     echo "--> ${YELLOW}Installing Oh My ZSH for root and $SUDO_USER .${NC}"
     wget -q https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O /opt/ohmyzsh.sh
     chmod 755 /opt/ohmyzsh.sh
     sh /opt/ohmyzsh.sh --unattended
+    sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="aussiegeek"/' ~/.zshrc
+    sed -i 's/plugins=(git)"/plugins=(git ansible debian colorize)"/' ~/.zshrc
     if [ -n "$SUDO_USER" ]; then
         sudo -u "$SUDO_USER" sh /opt/ohmyzsh.sh --unattended
+        sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="aussiegeek"/' ~/.zshrc
+        sed -i 's/plugins=(git)"/plugins=(git ansible debian colorize)"/' ~/.zshrc
     fi
 fi
 
