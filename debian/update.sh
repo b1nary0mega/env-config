@@ -31,8 +31,8 @@ if [ ! -f /opt/ohmyzsh.sh ]; then
     if [ -n "$SUDO_USER" ]; then
         sudo -u "$SUDO_USER" sh /opt/ohmyzsh.sh --unattended
         echo ".. ${BLUE}Updating plugins and theme(s) for $SUDO_USER.${NC}"
-        sudo -u "$SUDO_USER" sed -i 's/^plugins=(git)$/plugins=(git debian ansible colorize)/' eval ~$SUDO_USER/.zshrc
-        sudo -u "$SUDO_USER" sed -i 's/^ZSH_THEME="robbyrussell"$/ZSH_THEME="aussiegeek"/' eval ~$SUDO_USER/.zshrc
+        sudo -u "$SUDO_USER" sed -i 's/^plugins=(git)$/plugins=(git debian ansible colorize)/' "$(eval echo ~$SUDO_USER)/.zshrc"
+        sudo -u "$SUDO_USER" sed -i 's/^ZSH_THEME="robbyrussell"$/ZSH_THEME="aussiegeek"/' "$(eval echo ~$SUDO_USER)/.zshrc"
     fi
 fi
 
