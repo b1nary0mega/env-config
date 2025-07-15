@@ -324,7 +324,7 @@ fi
 
 if ! command -v xrdp &> /dev/null; then
     echo "--> ${YELLOW}Installing xrdp.${NC}"
-    apt install xrdp
+    apt install -y xrdp
     systemctl start xrdp
     systemctl enable xrdp
     echo
