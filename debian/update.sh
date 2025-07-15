@@ -18,12 +18,12 @@ fi
 ###############################################################################################################################
 
 echo
-echo -e "${BLUE}Updating the operating system.${NC}"
+echo "-> ${BLUE}Updating the operating system.${NC}"
 apt update ; apt -y upgrade ; apt -y dist-upgrade ; apt -y autoremove ; apt -y autoclean ; updatedb
 echo
 
 if [ ! -f /opt/ohmyzsh.sh ]; then
-    echo -e "${YELLOW}Installing Oh My ZSH for root and $SUDO_USER .${NC}"
+    echo "--> ${YELLOW}Installing Oh My ZSH for root and $SUDO_USER .${NC}"
     wget -q https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O /opt/ohmyzsh.sh
     chmod 755 /opt/ohmyzsh.sh
     sh /opt/ohmyzsh.sh --unattended
@@ -33,19 +33,19 @@ if [ ! -f /opt/ohmyzsh.sh ]; then
 fi
 
 if ! command -v ansible &> /dev/null; then
-    echo -e "${YELLOW}Installing Ansible.${NC}"
+    echo "--> ${YELLOW}Installing Ansible.${NC}"
     apt install -y ansible-core
     echo
 fi
 
 if ! command -v aws &> /dev/null; then
-    echo -e "${YELLOW}Installing AWS.${NC}"
+    echo "--> ${YELLOW}Installing AWS.${NC}"
     apt install -y awscli
     echo
 fi
 
 if ! command -v go &> /dev/null; then
-    echo -e "${YELLOW}Installing Go.${NC}"
+    echo "--> ${YELLOW}Installing Go.${NC}"
     apt install -y golang-go
     # shellcheck disable=SC2129
     echo "" >> ~/.zshrc
@@ -59,19 +59,19 @@ if ! command -v go &> /dev/null; then
 fi
 
 if ! command -v jq &> /dev/null; then
-    echo -e "${YELLOW}Installing jq.${NC}"
+    echo "--> ${YELLOW}Installing jq.${NC}"
     apt install -y jq
     echo
 fi
 
 if ! command -v raven &> /dev/null; then
-    echo -e "${YELLOW}Installing Raven.${NC}"
+    echo "--> ${YELLOW}Installing Raven.${NC}"
     apt install -y raven
     echo
 fi
 
 if ! command -v sublist3r &> /dev/null; then
-    echo -e "${YELLOW}Installing Sublist3r.${NC}"
+    echo " --> ${YELLOW}Installing Sublist3r.${NC}"
     apt install -y sublist3r
     echo
 fi
@@ -79,20 +79,20 @@ fi
 ###############################################################################################################################
 
 if ! command -v dnstwist &> /dev/null; then
-    echo -e "${YELLOW}Installing dnstwist.${NC}"
+    echo "--> ${YELLOW}Installing dnstwist.${NC}"
     apt install -y dnstwist
     echo
 fi
 
 if [ -d /opt/Domain-Hunter/.git ]; then
-    echo -e "${BLUE}Updating Domain Hunter.${NC}"
+    echo ".. ${BLUE}Updating Domain Hunter.${NC}"
     cd /opt/Domain-Hunter/ || exit ; git pull
     echo
 else
-    echo -e "${YELLOW}Installing Domain Hunter.${NC}"
+    echo "--> ${YELLOW}Installing Domain Hunter.${NC}"
     git clone https://github.com/threatexpress/domainhunter /opt/Domain-Hunter
     echo
-    echo -e "${YELLOW}Setting up Domain Hunter virtual environment.${NC}"
+    echo "--> ${YELLOW}Setting up Domain Hunter virtual environment.${NC}"
     python3 -m venv /opt/Domain-Hunter-venv
     /opt/Domain-Hunter-venv/bin/python -m pip install pytesseract
 #    /opt/Domain-Hunter-venv/bin/pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org pytesseract
@@ -101,25 +101,25 @@ else
 fi
 
 if [ -d /opt/DomainPasswordSpray/.git ]; then
-    echo -e "${BLUE}Updating DomainPasswordSpray.${NC}"
+    echo ".. ${BLUE}Updating DomainPasswordSpray.${NC}"
     cd /opt/DomainPasswordSpray/ || exit ; git pull
     echo
 else
-    echo -e "${YELLOW}Installing DomainPasswordSpray.${NC}"
+    echo "--> ${YELLOW}Installing DomainPasswordSpray.${NC}"
     git clone https://github.com/dafthack/DomainPasswordSpray /opt/DomainPasswordSpray
     echo
 fi
 
 # shellcheck disable=SC2166
 if [ -d /opt/Egress-Assess/.git -a -d /opt/Egress-Assess-venv ]; then
-    echo -e "${BLUE}Updating Egress-Assess.${NC}"
+    echo ".. ${BLUE}Updating Egress-Assess.${NC}"
     cd /opt/Egress-Assess/ || exit ; git pull
     echo
 else
-    echo -e "${YELLOW}Installing Egress-Assess.${NC}"
+    echo "--> ${YELLOW}Installing Egress-Assess.${NC}"
     git clone https://github.com/RedSiege/Egress-Assess /opt/Egress-Assess
     echo
-    echo -e "${YELLOW}Setting up Egress-Assess virtualenv.${NC}"
+    echo "--> ${YELLOW}Setting up Egress-Assess virtualenv.${NC}"
     python3 -m venv /opt/Egress-Assess-venv
     /opt/Egress-Assess-venv/bin/python -m pip install -r /opt/Egress-Assess/requirements.txt
     # If you are in a corp env that is doing MITM with SSL, use the following line instead. Do the same for all Python repos.
@@ -128,127 +128,127 @@ else
 fi
 
 if [ -d /opt/egressbuster/.git ]; then
-    echo -e "${BLUE}Updating egressbuster.${NC}"
+    echo ".. ${BLUE}Updating egressbuster.${NC}"
     cd /opt/egressbuster/ || exit ; git pull
     echo
 else
-    echo -e "${YELLOW}Installing egressbuster.${NC}"
+    echo "--> ${YELLOW}Installing egressbuster.${NC}"
     git clone https://github.com/trustedsec/egressbuster /opt/egressbuster
     echo
 fi
 
 if ! command -v feroxbuster &> /dev/null; then
-    echo -e "${YELLOW}Installing feroxbuster.${NC}"
+    echo "--> ${YELLOW}Installing feroxbuster.${NC}"
     apt install -y feroxbuster
     echo
 fi
 
 if ! command -v gobuster &> /dev/null; then
-    echo -e "${YELLOW}Installing gobuster.${NC}"
+    echo "--> ${YELLOW}Installing gobuster.${NC}"
     apt install -y gobuster
     echo
 fi
 
 if [ -d /opt/krbrelayx/.git ]; then
-    echo -e "${BLUE}Updating krbrelayx.${NC}"
+    echo ".. ${BLUE}Updating krbrelayx.${NC}"
     cd /opt/krbrelayx/ || exit ; git pull
     echo
 else
-    echo -e "${YELLOW}Installing krbrelayx.${NC}"
+    echo "--> ${YELLOW}Installing krbrelayx.${NC}"
     git clone https://github.com/dirkjanm/krbrelayx /opt/krbrelayx
     echo
 fi
 
 if [ -d /opt/manspider/.git ]; then
-    echo -e "${BLUE}Updating MAN-SPIDER.${NC}"
+    echo ".. ${BLUE}Updating MAN-SPIDER.${NC}"
     cd /opt/manspider/ || exit ; git pull
     echo
 else
-    echo -e "${YELLOW}Installing MAN-SPIDER.${NC}"
+    echo "--> ${YELLOW}Installing MAN-SPIDER.${NC}"
     git clone https://github.com/blacklanternsecurity/MANSPIDER /opt/manspider
     apt install -y antiword tesseract-ocr
     echo
 fi
 
 if ! command -v nishang &> /dev/null; then
-    echo -e "${YELLOW}Installing nishang.${NC}"
+    echo "--> ${YELLOW}Installing nishang.${NC}"
     apt install -y nishang
     echo
 fi
 
-echo -e "${BLUE}Updating Nmap scripts.${NC}"
+echo ".. ${BLUE}Updating Nmap scripts.${NC}"
 nmap --script-updatedb | grep -Eiv '(starting|seconds)' | sed 's/NSE: //'
 echo
 
 if [ -d /opt/PowerSharpPack/.git ]; then
-    echo -e "${BLUE}Updating PowerSharpPack.${NC}"
+    echo ".. ${BLUE}Updating PowerSharpPack.${NC}"
     cd /opt/PowerSharpPack/ || exit ; git pull
     echo
 else
-    echo -e "${YELLOW}Installing PowerSharpPack.${NC}"
+    echo "--> ${YELLOW}Installing PowerSharpPack.${NC}"
     git clone https://github.com/S3cur3Th1sSh1t/PowerSharpPack /opt/PowerSharpPack
     echo
 fi
 
 if [ -d /opt/PowerSploit/.git ]; then
-    echo -e "${BLUE}Updating PowerSploit.${NC}"
+    echo ".. ${BLUE}Updating PowerSploit.${NC}"
     cd /opt/PowerSploit/ || exit ; git pull
     echo
 else
-    echo -e "${YELLOW}Installing PowerSploit.${NC}"
+    echo "--> ${YELLOW}Installing PowerSploit.${NC}"
     git clone https://github.com/0xe7/PowerSploit /opt/PowerSploit
     echo
 fi
 
 if [ -d /opt/PowerUpSQL/.git ]; then
-    echo -e "${BLUE}Updating PowerUpSQL.${NC}"
+    echo ".. ${BLUE}Updating PowerUpSQL.${NC}"
     cd /opt/PowerUpSQL/ || exit ; git pull
     echo
 else
-    echo -e "${YELLOW}Installing PowerUpSQL.${NC}"
+    echo "--> ${YELLOW}Installing PowerUpSQL.${NC}"
     git clone https://github.com/NetSPI/PowerUpSQL /opt/PowerUpSQL
     echo
 fi
 
 if [ -d /opt/PrivescCheck/.git ]; then
-    echo -e "${BLUE}Updating PrivescCheck.${NC}"
+    echo ".. ${BLUE}Updating PrivescCheck.${NC}"
     cd /opt/PrivescCheck/ || exit ; git pull
     echo
 else
-    echo -e "${YELLOW}Installing PrivescCheck.${NC}"
+    echo "--> ${YELLOW}Installing PrivescCheck.${NC}"
     git clone https://github.com/itm4n/PrivescCheck /opt/PrivescCheck
     echo
 fi
 
 if [ -f /usr/share/wordlists/rockyou.txt.gz ]; then
-    echo -e "${YELLOW}Expanding Rockyou list.${NC}"
+    echo "--> ${YELLOW}Expanding Rockyou list.${NC}"
     zcat /usr/share/wordlists/rockyou.txt.gz > /usr/share/wordlists/rockyou.txt
     rm /usr/share/wordlists/rockyou.txt.gz
     echo
 fi
 
 if ! command -v rustc &> /dev/null; then
-    echo -e "${YELLOW}Installing Rust.${NC}"
+    echo "--> ${YELLOW}Installing Rust.${NC}"
     apt install -y rustc
     echo
 fi
 
 if [ -d /opt/SharpCollection/.git ]; then
-    echo -e "${BLUE}Updating SharpCollection.${NC}"
+    echo "--> ${BLUE}Updating SharpCollection.${NC}"
     cd /opt/SharpCollection/ || exit ; git pull
     echo
 else
-    echo -e "${YELLOW}Installing SharpCollection.${NC}"
+    echo "--> ${YELLOW}Installing SharpCollection.${NC}"
     git clone https://github.com/Flangvik/SharpCollection /opt/SharpCollection
     echo
 fi
 
 if [ -d /opt/subfinder/.git ]; then
-    echo -e "${BLUE}Updating subfinder.${NC}"
+    echo ".. ${BLUE}Updating subfinder.${NC}"
     cd /opt/subfinder/ || exit ; git pull
     echo
 else
-    echo -e "${YELLOW}Installing subfinder.${NC}"
+    echo "--> ${YELLOW}Installing subfinder.${NC}"
     git clone https://github.com/projectdiscovery/subfinder /opt/subfinder
     cd /opt/subfinder/v2/cmd/subfinder || exit
     go build
@@ -257,16 +257,16 @@ fi
 
 # shellcheck disable=SC2166
 if [ -d /opt/theHarvester/.git -a -d /opt/theHarvester-venv ]; then
-    echo -e "${BLUE}Updating theHarvester.${NC}"
+    echo ".. ${BLUE}Updating theHarvester.${NC}"
     cd /opt/theHarvester/ || exit ; git pull
     /opt/theHarvester-venv/bin/python -m pip install -r /opt/theHarvester/requirements.txt --upgrade | grep -v 'already satisfied'
 #    /opt/theHarvester-venv/bin/pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r requirements.txt --upgrade | grep -v 'already satisfied'
     echo
 else
-    echo -e "${YELLOW}Installing theHarvester.${NC}"
+    echo "--> ${YELLOW}Installing theHarvester.${NC}"
     git clone https://github.com/laramies/theHarvester /opt/theHarvester
     echo
-    echo -e "${YELLOW}Setting up theHarvester virtualenv.${NC}"
+    echo "--> ${YELLOW}Setting up theHarvester virtualenv.${NC}"
     python3 -m venv /opt/theHarvester-venv
     /opt/theHarvester-venv/bin/python -m pip install -r /opt/theHarvester/requirements.txt
 #    /opt/theHarvester-venv/bin/pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r requirements.txt
@@ -274,35 +274,35 @@ else
 fi
 
 if [ -d /opt/Windows-Exploit-Suggester-NG/.git ]; then
-    echo -e "${BLUE}Updating Windows Exploit Suggester NG.${NC}"
+    echo ".. ${BLUE}Updating Windows Exploit Suggester NG.${NC}"
     cd /opt/Windows-Exploit-Suggester-NG/ || exit ; git pull
     echo
 else
-    echo -e "${YELLOW}Installing Windows Exploit Suggester NG.${NC}"
+    echo "--> ${YELLOW}Installing Windows Exploit Suggester NG.${NC}"
     git clone https://github.com/bitsadmin/wesng /opt/Windows-Exploit-Suggester-NG
     echo
 fi
 
 if ! command -v xlsx2csv &> /dev/null; then
-    echo -e "${YELLOW}Installing xlsx2csv.${NC}"
+    echo "--> ${YELLOW}Installing xlsx2csv.${NC}"
     apt install -y xlsx2csv
     echo
 fi
 
 if ! command -v xml_grep &> /dev/null; then
-    echo -e "${YELLOW}Installing xml_grep.${NC}"
+    echo "--> ${YELLOW}Installing xml_grep.${NC}"
     apt install -y xml-twig-tools
     echo
 fi
 
 if ! command -v xspy &> /dev/null; then
-    echo -e "${YELLOW}Installing xspy.${NC}"
+    echo "--> ${YELLOW}Installing xspy.${NC}"
     apt install -y xspy
     echo
 fi
 
 if [ ! -f /opt/xwatchwin/xwatchwin ]; then
-    echo -e "${YELLOW}Installing xwatchwin.${NC}"
+    echo "--> ${YELLOW}Installing xwatchwin.${NC}"
     apt install -y imagemagick libxext-dev xutils-dev
     wget http://www.ibiblio.org/pub/X11/contrib/utilities/xwatchwin.tar.gz -O /tmp/xwatchwin.tar.gz
     tar zxvf /tmp/xwatchwin.tar.gz -C /tmp/
@@ -323,7 +323,7 @@ fi
 ###############################################################################################################################
 
 if ! command -v xrdp &> /dev/null; then
-    echo -e "${YELLOW}Installing xrdp.${NC}"
+    echo "--> ${YELLOW}Installing xrdp.${NC}"
     apt install xrdp
     systemctl start xrdp
     systemctl enable xrdp
@@ -331,30 +331,30 @@ if ! command -v xrdp &> /dev/null; then
 fi
 
 if ! command -v gimp &> /dev/null; then
-    echo -e "${YELLOW}Installing gimp.${NC}"
+    echo "--> ${YELLOW}Installing gimp.${NC}"
     apt install -y gimp
     echo
 fi
 
 if ! command -v libreoffice &> /dev/null; then
-    echo -e "${YELLOW}Installing Libre Office.${NC}"
+    echo "--> ${YELLOW}Installing Libre Office.${NC}"
     apt install -y libreoffice
     echo
 fi
 
 if ! command -v flameshot &> /dev/null; then
-    echo -e "${YELLOW}Installing flameshot.${NC}"
+    echo "--> ${YELLOW}Installing flameshot.${NC}"
     apt install -y flameshot
     if [ "$XDG_CURRENT_DESKTOP" == "XFCE" ]; then
-    	echo -e "${BLUE}Rebinding PRNT SCREEN button.${NC}"
+    	echo "..... ${BLUE}binding PRINT SCREEN button.${NC}"
         xfconf-query --create --channel xfce4-keyboard-shortcuts --property "/commands/custom/Print" --type string --set "flameshot gui"
     else
-        echo -e "${BLUE}Remember to update keyboard bind.${NC}"
+        echo "..... ${BLUE}Remember to update keyboard bind.${NC}"
     echo
 fi
 
 if ! command -v "brave-browser" &> /dev/null; then
-    echo -e "${YELLOW}Installing Brave Browser.${NC}"
+    echo "--> ${YELLOW}Installing Brave Browser.${NC}"
     sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
     echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
     sudo apt update
@@ -364,7 +364,9 @@ fi
 
 ###############################################################################################################################
 
-echo -e "${BLUE}Updating locate database.${NC}"
+echo "..${BLUE}Updating locate database.${NC}"
 updatedb
+
+echo "...enjoy the shinies..."
 
 exit
